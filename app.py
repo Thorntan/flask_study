@@ -62,7 +62,9 @@ def page_not_found(e):
 
 @app.route('/')
 def redirect_page():
-    return redirect(url_for('index'))
+    #return redirect(url_for('index',name='haha'))
+    #return redirect(url_for('static',name='haha',filename='index.html')) #static page can not accept args
+    return redirect(url_for('static',name='haha',filename='index.html'))
 
 if __name__ in '__main__':
     app.run(debug=True,host='0.0.0.0')
