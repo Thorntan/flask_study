@@ -4,6 +4,7 @@ from flask import request
 from flask import current_app
 from flask import g
 from flask import make_response
+from flask import render_template
 import json
 
 app = Flask(__name__)
@@ -19,7 +20,8 @@ def index():
     #requried_str = request.args['name']
     not_requried_str = request.args.get('name','no name')
     tmp = not_requried_str
-    return '<h1>hello %s</h1>' % tmp
+    #return '<h1>hello %s</h1>' % tmp
+    return render_template('index.html',name=tmp)
 
 @app.route('/test/<name>')
 def test(name):
@@ -50,6 +52,10 @@ def delete():
     name = request.form['title']
     notes.remove(name)
     return "%s is deleted" % name
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'),404
 
 if __name__ in '__main__':
     app.run(debug=True,host='0.0.0.0')
