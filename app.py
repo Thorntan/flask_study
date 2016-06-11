@@ -5,15 +5,18 @@ from flask import current_app
 from flask import g
 from flask import make_response
 from flask import render_template
+from flask import redirect
+from flask import url_for
 import json
 
 app = Flask(__name__)
 
 notes = []
 
-@app.route('/')
-def tmp():
-    return 'hello'
+
+#@app.route('/')
+#def tmp():
+#    return 'hello'
 
 @app.route('/index')
 def index():
@@ -56,6 +59,10 @@ def delete():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'),404
+
+@app.route('/')
+def redirect_page():
+    return redirect(url_for('index'))
 
 if __name__ in '__main__':
     app.run(debug=True,host='0.0.0.0')
